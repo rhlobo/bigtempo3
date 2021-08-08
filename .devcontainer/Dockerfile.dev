@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # vim: set syntax=dockerfile:
 
-FROM rhlobo/anaconda3-minimal-base
+FROM rhlobo/bigtempo3-base
 
 
 # [Optional] Uncomment this section to install additional OS packages.

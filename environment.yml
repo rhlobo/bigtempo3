@@ -1,3 +1,25 @@
 name: condaenv
 dependencies:
+  # Pandas requirements
   - numpy
+  - python-dateutil
+  - pytz
+  # Pandas Highly REcommended Dependencies
+  - numexpr
+  - Bottleneck
+  # Pandas Optional Dependencies
+  - Cython
+  - scipy
+  - matplotlib
+  # Pandas
+  - pandas
+  # Statistics over pandas
+  - patsy
+  - statsmodels
+  # Interactive scripts
+  - jupyterlab
+  # Test requirements
+  - mockito
+  - nose
+  - pycodestyle
+  - coverage

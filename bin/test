@@ -1,0 +1,26 @@
+#!/bin/bash
+
+
+source "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.base"
+
+TESTTYPE=${1:-fast}
+export TESTTYPE
+
+cd "${PROJECT_LOCATION}"
+echo
+echo "TESTS"
+echo "--------------------------------------------------------------------------------"
+nosetests --with-coverage --cover-erase --cover-inclusive --cover-branches --cover-package="${PROJECT_NAME}" --cover-html --cover-html-dir="../coverage/" -w "${PROJECT_NAME}"
+echo
+echo
+echo "PEP8 CODE STYLE CHECK"
+echo "--------------------------------------------------------------------------------"
+find "${PROJECT_NAME}" -type f -name "*.py" -exec pycodestyle --first --max-line-length=160 {} \;
+echo
+echo "#     Err  Description"
+echo "--------------------------------------------------------------------------------"
+pycodestyle --statistics --max-line-length=160 -qq "./${PROJECT_NAME}" | sort -nr
+echo
+
+find . -type f -name "*.pyc" -exec rm -f {} \;
+cd "${CURRDIR}"
