@@ -19,6 +19,7 @@ _BASEDIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && cd .. && pwd )"
 _PROJECT=${PWD##*/}
 _ENV=${1:-dev}
 _DOCKERFILE_PATH=""
+_TAG=""
 
 
 # VALIDATION ##################################################################
@@ -26,8 +27,10 @@ _DOCKERFILE_PATH=""
 case $_ENV in
     dev)
         _DOCKERFILE_PATH=".devcontainer/"
+        _TAG="dev"
         ;;
     prod)
+        _TAG="latest"
         ;;
     *)
         echo "ERROR: Build env not known: $_ENV"
@@ -40,6 +43,6 @@ sed -ri "s#^FROM ([^/]*).*#FROM \1\/${_PROJECT}-base#g" "${_DOCKERFILE_PATH}Dock
 
 
 # MAIN ########################################################################
-echo "Building docker image ${_USER}/${_PROJECT}:${_ENV}"
-doas docker build --tag "${_USER}/${_PROJECT}:${_ENV}" --file "${_DOCKERFILE_PATH}Dockerfile.${_ENV}" .
+echo "Building docker image ${_USER}/${_PROJECT}:${_TAG}"
+doas docker build --tag "${_USER}/${_PROJECT}:${_TAG}" --file "${_DOCKERFILE_PATH}Dockerfile.${_ENV}" .
 
