@@ -9,6 +9,5 @@ FROM rhlobo/bigtempo3-base
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
 
-WORKDIR /app
-
-CMD [ "python3", "app.py" ]
+# Adds bigtempo to conda env
+RUN sudo /opt/conda/bin/conda develop /workspaces/bigtempo3

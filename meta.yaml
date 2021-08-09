@@ -1,0 +1,12 @@
+package:
+  name: bigtempo3
+  version: "0.40.0"
+
+about:
+  home: https://github.com/rhlobo/bigtempo3
+  license: MIT
+  summary: Temporal data processment package for Python, providing a scalable programming model created for data analysis, exploration and evaluation.
+
+requirements:
+  run:
+    - python

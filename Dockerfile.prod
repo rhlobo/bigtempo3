@@ -1,14 +1,15 @@
 # syntax=docker/dockerfile:1
 # vim: set syntax=dockerfile:
 
-FROM rhlobo/anaconda3-minimal-base
+FROM rhlobo/bigtempo3-base
 
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
-
 WORKDIR /app
+COPY . .
 
-CMD [ "python3", "app.py" ]
+# Adds bigtempo to conda env
+RUN sudo /opt/conda/bin/conda develop /app

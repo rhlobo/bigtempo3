@@ -145,10 +145,6 @@ Caching
 
 - Smart temporal data caching
 
-Compatibility
-
-- Python 2.7+
-
 
 Bug tracker
 -----------
