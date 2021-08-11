@@ -57,9 +57,10 @@ def assure_is_valid_set(obj):
 
 def slice(slicable, start=None, end=None):
     if start and end:
-        return slicable[start:end]
+        return slicable.loc[(slicable.index > start) & (slicable.index < end)]
     if start:
-        return slicable[start:]
+        return slicable.loc[slicable.index > start]
     if end:
-        return slicable[:end]
+        return slicable.loc[slicable.index < end]
     return slicable
+

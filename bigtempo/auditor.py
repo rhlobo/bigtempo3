@@ -93,9 +93,10 @@ def _assert_datasource_correctness_using_datafiles(engine, reference, symbol, st
         engine._registrations[dependency_reference] = registration_mock
 
     expected_data_file = test_data_filepath_fn(reference, symbol)
+    raw_expected_data = pandas.read_csv(expected_data_file, index_col=0, parse_dates=True)
 
     actual = engine.get(reference).process(symbol, start, end)
-    expected = utils.slice(pandas.DataFrame.from_csv(expected_data_file), start, end)
+    expected = utils.slice(raw_expected_data, start, end)
 
     logger.log('actual', actual)
     logger.log('expected', expected)
@@ -114,7 +115,7 @@ def _create_mock_datasource(mock_reference, mock_data_file, logger):
     class DatasourceMock(object):
 
         def evaluate(self, context, symbol, start=None, end=None):
-            data = pandas.DataFrame.from_csv(mock_data_file)
+            data = pandas.read_csv(mock_data_file, index_col=0, parse_dates=True)
             sliced_data = utils.slice(data, start, end)
             logger.log(os.path.basename(mock_data_file), sliced_data)
             return sliced_data
@@ -125,3 +126,4 @@ def _create_mock_datasource(mock_reference, mock_data_file, logger):
 def _assert_dataframe_almost_equal(expected, actual, margin=0.0000000001):
     tmp = ((expected.dropna() - actual.dropna()).abs() < margin)
     assert tmp.all().all()
+
